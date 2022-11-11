@@ -1,5 +1,4 @@
 
-
 import os
 from pytube import YouTube
 from telebot import TeleBot,telebot,types
@@ -22,6 +21,6 @@ def audio_download(msg):
     os.rename(out_file, new_file)
     print('Downloading...')
     with open(new_file,'rb') as e:
-        bot.send_audio(msg.chat.id,e,msg.message_id,caption=f'{yt.title}')
+        bot.send_audio(msg.chat.id,e,msg.message_id)
 
 bot.infinity_polling()
