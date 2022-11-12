@@ -15,8 +15,8 @@ def welcome_message(msg):
 def audio_download(msg):
     yt = YouTube(msg.text)
     video = yt.streams.filter(only_audio=True).first()
-    out_file = video.download('.')
-    base, ext = os.path.splitext(out_file)
+    out_file = video.download()
+    base, ext = out_file
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
     print('Downloading...')
