@@ -1,16 +1,23 @@
 
+
 import os
 import pafy
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
+from telebot.types import InlineKeyboardMarkup,InlineKeyboardButton
+bot = telebot.TeleBot("5118039174:AAExJPN34Qlkj-VvPg9NkFrIbwHFKAoPpBQ",parse_mode="HTML")
 
-bot = telebot.TeleBot("5118039174:AAExJPN34Qlkj-VvPg9NkFrIbwHFKAoPpBQ")
 
+markup = InlineKeyboardMarkup()
+b1 = InlineKeyboardButton('🦧Official Channel🦧',url='t.me/DevelopersPage')
+b2 = InlineKeyboardButton('🦅Official Group🦅',url='t.me/DevelopersChat')
+markup.add(b1,b2)
 
 @bot.message_handler(commands=['start'])
-def welcome_message(msg):
-    bot.send_message(msg.chat.id,f"Hello {user_link(msg.from_user)}Send valid youtube vidoe link")
-    
+def welcome_msg(message):
+    user = message.from_user
+    bot.reply_to(message,f'Hello dear {user_link(user)} welcome to youtube audio downloader bot\n just send valid youtube link',reply_markup = markup)
+  
     
 @bot.message_handler(func = lambda m:True)
 def audio_download(msg):
@@ -19,6 +26,7 @@ def audio_download(msg):
     fileName = f"{downloader.title}.mp3"
     audio.download(fileName)
     with open(fileName,"rb") as audio:
-        bot.send_audio(msg.chat.id,audio,msg.message_id)
+        bot.send_audio(msg.chat.id,audio,caption=f"{downloader.title}")
+        os.remove(f"{downloader.title}.mp3")
 
 bot.infinity_polling()
