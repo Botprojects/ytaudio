@@ -1,10 +1,10 @@
 
 import os
-import pafy
+import youtube_dl
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
 from telebot.types import InlineKeyboardMarkup,InlineKeyboardButton
-bot = telebot.TeleBot("5663185725:AAGV5EgmIDI1md4A7RfQhb0t8UMqhz04uy4")
+bot = telebot.TeleBot(os.getenv("B-Token"),parse_mode="HTML")
 
 
 markup = InlineKeyboardMarkup()
@@ -20,12 +20,20 @@ def welcome_msg(message):
     
 @bot.message_handler(func = lambda m:True)
 def audio_download(msg):
-    downloader = pafy.new(msg.text)
-    audio = downloader.audiostreams[0]
-    fileName = f"{downloader.title}.mp3"
-    audio.download(fileName)
-    with open(fileName,"rb") as audio:
-        bot.send_audio(msg.chat.id,audio,caption=f"{downloader.title}")
-        os.remove(f"{downloader.title}.mp3")
+    link = msg.text
+    downloader = youtube_dl.YoutubeDL().extract_info(url = link,download=False)
+    filename = f"{downloader['title']}.mp3"
+    options={
+        'format':'bestaudio/best',
+        'keepvideo':False,
+        'outtmpl':filename,
+    }
+    
+    with youtube_dl.YoutubeDL(options) as ydl:
+        ydl.download([downloader['webpage_url']])
+        with open(filename,"rb")as audio:
+            bot.send_audio(msg.chat.id,audio,caption=f"{downloader['title']}")
+            bot.send_chat_action(msg.chat.id,action="upload_document")
+            os.remove(filename)
 
 bot.infinity_polling()
