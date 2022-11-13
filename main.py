@@ -19,6 +19,6 @@ def audio_download(msg):
     fileName = f"{downloader.title}.mp3"
     audio.download(fileName)
     with open(fileName,"rb") as audio:
-        bot.send_audio(msg.chat.id,audio,msg.message_id,caption="f{downloader.title}")
+        bot.send_audio(msg.chat.id,audio,msg.message_id)
 
 bot.infinity_polling()
