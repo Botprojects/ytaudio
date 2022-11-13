@@ -4,7 +4,7 @@ import pafy
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
 from telebot.types import InlineKeyboardMarkup,InlineKeyboardButton
-bot = telebot.TeleBot("5663185725:AAGq78Ct1cq6MzGFPWldrCwssIbdg4gKFGE",parse_mode="HTML")
+bot = telebot.TeleBot("5663185725:AAGV5EgmIDI1md4A7RfQhb0t8UMqhz04uy4")
 
 
 markup = InlineKeyboardMarkup()
