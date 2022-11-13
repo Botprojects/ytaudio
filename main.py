@@ -4,7 +4,7 @@ import pafy
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
 
-bot = telebot.TeleBot("5118039174:AAEbw77oG5lXpZJo1Wyl-mbXSiy8iB0Zzlc")
+bot = telebot.TeleBot("5118039174:AAExJPN34Qlkj-VvPg9NkFrIbwHFKAoPpBQ")
 
 
 @bot.message_handler(commands=['start'])
