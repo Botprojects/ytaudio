@@ -24,14 +24,13 @@ def welcome_msg(message):
 def audio_download(msg):
     try:
         link = msg.text
-    downloader = youtube_dl.YoutubeDL().extract_info(url = link,download=False)
-    filename = f"{downloader['title']}.mp3"
-    options={
+        downloader = youtube_dl.YoutubeDL().extract_info(url = link,download=False)
+        filename = f"{downloader['title']}.mp3"
+        options={
         'format':'bestaudio/best',
         'keepvideo':False,
         'outtmpl':filename,
     }
-    
     with youtube_dl.YoutubeDL(options) as ydl:
         ydl.download([downloader['webpage_url']])
         with open(filename,"rb")as audio:
@@ -40,7 +39,6 @@ def audio_download(msg):
             os.remove(filename)
     except Exception as e:
         print(e)
-        
     
 bot.infinity_polling()
 
