@@ -20,7 +20,8 @@ def welcome_msg(message):
     
 @bot.message_handler(func = lambda m:True)
 def audio_download(msg):
-    link = msg.text
+    try:
+        link = msg.text
     downloader = youtube_dl.YoutubeDL().extract_info(url = link,download=False)
     filename = f"{downloader['title']}.mp3"
     options={
@@ -35,5 +36,9 @@ def audio_download(msg):
             bot.send_audio(msg.chat.id,audio,caption=f"{downloader['title']}")
             bot.send_chat_action(msg.chat.id,action="upload_document")
             os.remove(filename)
-
+    except Exception as e:
+        print(e)
+        
+    
 bot.infinity_polling()
+
