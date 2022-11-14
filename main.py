@@ -4,7 +4,9 @@ import youtube_dl
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
 from telebot.types import InlineKeyboardMarkup,InlineKeyboardButton
-bot = telebot.TeleBot("5663185725:AAEQCkK5-YGdmouAwQsDDrb8Fu4nErdtEh8",parse_mode="HTML")
+
+token = "5118039174:AAExJPN34Qlkj-VvPg9NkFrIbwHFKAoPpBQ"
+bot = telebot.TeleBot(token,parse_mode="HTML")
 
 
 markup = InlineKeyboardMarkup()
