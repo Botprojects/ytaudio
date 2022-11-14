@@ -29,14 +29,13 @@ def audio_download(msg):
         options={
         'format':'bestaudio/best',
         'keepvideo':False,
-        'outtmpl':filename,
-    }
-    with youtube_dl.YoutubeDL(options) as ydl:
-        ydl.download([downloader['webpage_url']])
-        with open(filename,"rb")as audio:
-            bot.send_audio(msg.chat.id,audio,caption=f"{downloader['title']}")
-            bot.send_chat_action(msg.chat.id,action="upload_document")
-            os.remove(filename)
+        'outtmpl':filename, }
+        with youtube_dl.YoutubeDL(options) as ydl:
+            ydl.download([downloader['webpage_url']])
+            with open(filename,"rb")as audio:
+                bot.send_audio(msg.chat.id,audio,caption=f"{downloader['title']}")
+                bot.send_chat_action(msg.chat.id,action="upload_document")
+                os.remove(filename)
     except Exception as e:
         print(e)
     
