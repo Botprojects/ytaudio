@@ -47,10 +47,10 @@ def audio_download(msg):
         with youtube_dl.YoutubeDL(options) as ydl:
             file= ydl.download([downloader['webpage_url']])
             bot.send_audio(msg.chat.id,file)
-            '''with open(filename,"rb")as audio:
+            with open(filename,"rb")as audio:
                 bot.send_audio(msg.chat.id,audio,caption=f"{downloader['title']}")
                 bot.send_chat_action(msg.chat.id,action="upload_document")
-                os.remove(filename)'''
+                os.remove(filename)
     except Exception as e:
         print(e)'''
     
