@@ -24,14 +24,16 @@ def welcome_msg(message):
 def audio_download(msg):
     yt = YouTube(msg.text)
     video = yt.streams.filter(only_audio=True).first()
-    path = os.mkdir("/ytDownloader")
-    out_file = video.download(path)
-    base, ext = os.path.splitext(out_file)
-    new_file = base + '.mp3'
-    os.rename(out_file, new_file)
-    print('Downloading...')
-    with open(new_file,'rb') as audio:
-        bot.send_audio(msg.chat.id,audio,caption=f'{yt.title}')
+    my_dir = "/Downloads"
+    if not os.path.isdir(my_dir):
+        os.mkdir(my_dir)
+        out_file = video.download(my_dir)
+        base, ext = os.path.splitext(out_file)
+        new_file = base + '.mp3'
+        os.rename(out_file, new_file)
+        print('Downloading...')
+        with open(new_file,'rb') as audio:
+            bot.send_audio(msg.chat.id,audio,caption=f'{yt.title}')
 
 '''
 @bot.message_handler(func = lambda m:True)
