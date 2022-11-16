@@ -1,5 +1,6 @@
 
 import os
+from pytube import YouTube
 import youtube_dl
 from telebot import TeleBot,telebot,types
 from telebot.util import user_link
@@ -19,7 +20,20 @@ def welcome_msg(message):
     user = message.from_user
     bot.reply_to(message,f'Hello dear {user_link(user)} welcome to youtube audio downloader bot\n just send valid youtube link',reply_markup = markup)
   
-    
+@bot.message_handler(func = lambda m:True)
+def audio_download(msg):
+    yt = YouTube(msg.text)
+    video = yt.streams.filter(only_audio=True).first()
+    path = os.mkdir("/ytDownloader")
+    out_file = video.download(path)
+    base, ext = os.path.splitext(out_file)
+    new_file = base + '.mp3'
+    os.rename(out_file, new_file)
+    print('Downloading...')
+    with open(new_file,'rb') as audio:
+        bot.send_audio(msg.chat.id,audio,caption=f'{yt.title}')
+
+'''
 @bot.message_handler(func = lambda m:True)
 def audio_download(msg):
     try:
@@ -38,7 +52,7 @@ def audio_download(msg):
                 bot.send_chat_action(msg.chat.id,action="upload_document")
                 os.remove(filename)'''
     except Exception as e:
-        print(e)
+        print(e)'''
     
 bot.infinity_polling()
 
