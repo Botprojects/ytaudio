@@ -8,8 +8,8 @@ bot = telebot.TeleBot("5663185725:AAEQCkK5-YGdmouAwQsDDrb8Fu4nErdtEh8",parse_mod
 
 
 markup = InlineKeyboardMarkup()
-b1 = InlineKeyboardButton('🦧Official Channel🦧',url='t.me/DevelopersPage')
-b2 = InlineKeyboardButton('🦅Official Group🦅',url='t.me/DevelopersChat')
+b1 = InlineKeyboardButton('🦧Official Channel🦧',url='t.me/neuralp')
+b2 = InlineKeyboardButton('🦅Official Group🦅',url='t.me/neuralg')
 markup.add(b1,b2)
 
 @bot.message_handler(commands=['start'])
