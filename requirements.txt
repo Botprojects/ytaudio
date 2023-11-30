@@ -1,2 +1,3 @@
-pyTelegramBotApi
 youtube-dl
+pyrogram
+tgcrypto
