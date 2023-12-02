@@ -19,7 +19,7 @@ async def handler (c, m):
     filtered_urls = [url for url in urls if url.startswith(("http://", "https://"))]
     
     count = 0
-    status = """**Bulk Download**
+    status = """**Download**
 
     __Total__: {total}
     __Completed__: {completed}
@@ -28,15 +28,14 @@ async def handler (c, m):
     for url in filtered_urls:
         count += 1
         if len(urls) == 1:
-            await m.reply("Extracting Audio")
             try:
                 await download(url, m)
                 await status_msg.edit_text(status.format(total = len(filtered_urls), completed = count))
-            except:
-                await m.reply(f"invalid url `{url}`")
+            except Exception as e:
+                await m.reply(f"invalid url `{url}`, \n\nerror: {e}")
         else:
             try:
                 await download(url, m)
                 await status_msg.edit_text(status.format(total = len(filtered_urls), completed = count))
             except Exception as e:
-                await m.reply(f"invalid url `{url}`")
+                await m.reply(f"invalid url `{url}`, \n\nerror: {e}")
